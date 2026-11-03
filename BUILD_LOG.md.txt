@@ -1,0 +1,19 @@
+Day 1: loaded and cleaned 30,954 days of Met Éireann data. The missing values were hidden as spaces.”
+Day 2: Is it always raining?
+
+It rains on 52% of days, but only 36% are properly wet (≥ 1 mm). About a third of rain days are just drizzle.
+The average is 757 mm a year. The wettest year was 2002, the driest 1989, and 2023 was the 5th wettest in 84 years. I left 2026 out of yearly averages because it’s incomplete.
+December has the most rain days (~58%) and June the fewest (~48%). I guessed May would be the wettest, but it’s one of the driest.
+There are about 13–14 more rain days a year than in the 1940s (p = 0.02), but rain days peaked around 2000, not as a steady climb.
+Lesson: a trend line can hide the real shape. Always plot it.
+
+Day 3: Streaks, myths and setting up the ML
+
+The longest rainy streak was 30 days (May 1967), and the longest dry streak 31 days (Aug 1947). I guessed 13 and 5.
+Weather has memory: rain today means a 66% chance of rain tomorrow, against 37% after a dry day.
+Weekend myth busted: 52.2% on weekdays vs 51.9% at weekends (p = 0.75). Rain doesn’t know what day it is.
+Chart lesson: bar charts start at zero. A zoomed axis made “no difference” look like a big one.
+ML setup: the target is “wet tomorrow (≥ 1 mm)”. Every feature must be known by midnight, so there’s no leakage.
+I split by years (train 1950–2009, validate 2010–16, test 2017–26), not at random, because neighbouring days are too similar.
+Bugs caught: hidden notebook state, and pandas silently turning “unknown tomorrow” into “dry”.
+Baselines: “always dry” scores 64% accuracy but catches zero wet days. “Tomorrow = today” reaches 61.9% balanced accuracy, and that’s the score to beat.
